@@ -54,7 +54,12 @@ app.use(
       return callback(new Error(`Not allowed by CORS: ${origin}`));
     },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization", "ngrok-skip-browser-warning"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "x-admin-key",
+      "ngrok-skip-browser-warning",
+    ],
     credentials: true,
     optionsSuccessStatus: 204,
   })
