@@ -20,11 +20,10 @@ console.log("📁 Uploads directory ensured at:", uploadsDir);
 
 // ✅ CORS Configuration with heavy logging
 const allowedOrigins = [
-  "http://localhost:5173",
+  "http://localhost:5173",           // ← Your React dev server
   "https://synonymous-cespitose-bethanie.ngrok-free.dev",
   "https://codeshare12.netlify.app",
 ];
-
 console.log("📋 Allowed Origins:", allowedOrigins);
 
 app.use((req, res, next) => {
@@ -57,11 +56,9 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization", "ngrok-skip-browser-warning"],
     credentials: true,
-    preflightContinue: false,
     optionsSuccessStatus: 204,
   })
 );
-
 // Log after CORS is applied
 app.use((req, res, next) => {
   console.log("✅ CORS middleware passed successfully");

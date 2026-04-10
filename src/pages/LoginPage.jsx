@@ -46,15 +46,21 @@ export default function LoginPage() {
       </div>
 
       <button
-      className="bg-red-500 px-10 rounded-lg "
+        className="bg-red-500 px-10 rounded-lg "
         onClick={() => {
           fetch(
             "https://synonymous-cespitose-bethanie.ngrok-free.dev/api/admin/projects",
+            {
+              headers: {
+                "ngrok-skip-browser-warning": "true",
+              },
+            },
           )
             .then((res) => res.json())
             .then((res) => {
               console.log("call me", res);
-            }).catch((err) => {
+            })
+            .catch((err) => {
               console.error("error", err);
             });
         }}
