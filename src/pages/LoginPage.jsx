@@ -20,7 +20,7 @@ export default function LoginPage() {
 
     setIsLoading(true);
     setError("");
-  console.log("Fetching admin projects with key:", trimmed);
+  // console.log("Fetching admin projects with key:", trimmed);
 
     try {
       await getAdminProjects(trimmed);
@@ -45,29 +45,6 @@ export default function LoginPage() {
         <div className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-violet-500/10 blur-3xl" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
       </div>
-
-      <button
-        className="bg-red-500 px-10 rounded-lg "
-        onClick={() => {
-          fetch(
-            "https://synonymous-cespitose-bethanie.ngrok-free.dev/api/admin/projects",
-            {
-              headers: {
-                "ngrok-skip-browser-warning": "true",
-              },
-            },
-          )
-            .then((res) => res.json())
-            .then((res) => {
-              console.log("call me", res);
-            })
-            .catch((err) => {
-              console.error("error", err);
-            });
-        }}
-      >
-        call boy
-      </button>
 
       <div className="relative w-full max-w-md">
         {/* Logo mark */}

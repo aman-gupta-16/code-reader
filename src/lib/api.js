@@ -57,7 +57,9 @@ function splitFilesIntoBatches(
 
 export async function getAdminProjects(adminKey) {
   return request("/api/admin/projects", {
+    method: "GET",
     headers: {
+      Authorization: `Bearer ${adminKey}`,
       "x-admin-key": adminKey,
       "ngrok-skip-browser-warning": "true",
     },
@@ -65,9 +67,11 @@ export async function getAdminProjects(adminKey) {
 }
 
 export async function createAdminProject(adminKey, body) {
-  return request("/api/admin/projects", {
+  console.log("Creating project with body:", body);
+  return request("/api/admin/projectspost", {
     method: "POST",
     headers: {
+      Authorization: `Bearer ${adminKey}`,
       "content-type": "application/json",
       "x-admin-key": adminKey,
     },
