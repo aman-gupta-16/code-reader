@@ -9,6 +9,7 @@ import clientRoutes from "./routes/clientRoutes.js";
 
 const app = express();
 const port = Number(process.env.PORT ?? 5000);
+const mongoUri = process.env.MONGODB_URI;
 
 console.log("🚀 Server starting...");
 
