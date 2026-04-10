@@ -43,23 +43,22 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    // origin: function (origin, callback) {
-    //   // Allow requests with no origin (Postman, curl, mobile apps, etc.)
-    //   if (!origin) return callback(null, true);
+    origin: function (origin, callback) {
+      // Allow requests with no origin (Postman, curl, mobile apps, etc.)
+      if (!origin) return callback(null, true);
 
-    //   if (allowedOrigins.includes(origin)) {
-    //     return callback(null, true);
-    //   }
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
 
-    //   console.warn(`CORS blocked origin: ${origin}`);
-    //   return callback(new Error("Not allowed by CORS"));
-    // },
-    origin: "*",
-    credentials: false,
-    // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    // allowedHeaders: ["Content-Type", "Authorization", "ngrok-skip-browser-warning"], // important for ngrok
-    // preflightContinue: false,
-    // optionsSuccessStatus: 204,
+      console.warn(`CORS blocked origin: ${origin}`);
+      return callback(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization", "ngrok-skip-browser-warning"], // important for ngrok
+    credentials: true,   // if you use cookies/auth
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   })
 );
 
