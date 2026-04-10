@@ -24,6 +24,8 @@ app.use(
     credentials: false,
   }),
 );
+
+app.options("*", cors());
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,17 +36,25 @@ app.get("/api/health", (_req, res) => {
 app.use("/api/admin", adminRoutes);
 app.use("/api/client", clientRoutes);
 
-app.use((error, _req, res, _next) => {
+// app.use((error, _req, res, _next) => {
+//   const status = Number(error.statusCode ?? 500);
+//   const message = error.message || "Unexpected server error.";
+
+//   if (status >= 500) {
+//     console.error(error);
+//   }
+
+//   res.status(status).json({ message });
+// });
+
+
+app.use((error, req, res, _next) => {
   const status = Number(error.statusCode ?? 500);
   const message = error.message || "Unexpected server error.";
 
-  if (status >= 500) {
-    console.error(error);
-  }
-
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
   res.status(status).json({ message });
 });
-
 await connectDatabase(mongoUri);
 app.listen(port, () => {
   console.log(`API server running on http://localhost:${port}`);
