@@ -55,11 +55,11 @@ app.use(
     //   return callback(new Error("Not allowed by CORS"));
     // },
     origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization", "ngrok-skip-browser-warning"], // important for ngrok
-    credentials: true,   // if you use cookies/auth
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
+    credentials: false,
+    // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    // allowedHeaders: ["Content-Type", "Authorization", "ngrok-skip-browser-warning"], // important for ngrok
+    // preflightContinue: false,
+    // optionsSuccessStatus: 204,
   })
 );
 
