@@ -76,7 +76,7 @@ async function cleanupStoredFiles(projectId, storedNames) {
   );
 }
 
-router.use(adminAuth);
+// router.use(adminAuth);
 
 router.get('/projects', async (_req, res, next) => {
   try {
