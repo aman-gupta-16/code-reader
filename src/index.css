@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --panel-bg: rgba(15, 23, 42, 0.76);
+  --panel-border: rgba(148, 163, 184, 0.14);
+  --accent: #22d3ee;
+  --warning: #f59e0b;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(34, 211, 238, 0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(139, 92, 246, 0.08), transparent),
+    linear-gradient(180deg, #020617 0%, #050c1a 100%);
+  color: #e2e8f0;
+  font-family: 'Inter', 'Segoe UI Variable Text', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+pre,
+code {
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'SFMono-Regular', Consolas, monospace;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.22);
+  color: inherit;
+}
+
+/* ===== Scrollbar ===== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.25) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.25);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+code::-webkit-scrollbar,
+pre::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+code::-webkit-scrollbar-track,
+pre::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+}
+
+code::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 3px solid rgba(15, 23, 42, 0.5);
+  background: rgba(148, 163, 184, 0.3);
+}
+
+/* ===== Utility classes ===== */
+.app-glass {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.58));
+  backdrop-filter: blur(20px);
+}
+
+.panel-glow {
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.08), 0 30px 70px rgba(2, 6, 23, 0.45);
+}
+
+/* App shell for client viewer - fills the full viewport height */
+.app-shell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Transitions ===== */
+button,
+a,
+input,
+select,
+textarea {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Focus ring ===== */
+:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.5);
+  outline-offset: 2px;
+}
+
+/* ===== Input/select native resets ===== */
+select {
+  color-scheme: dark;
+}
+
+input[type='datetime-local'] {
+  color-scheme: dark;
+}
+
+/* ===== Prism overrides ===== */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #64748b;
+}
+
+code[class*='language-'],
+pre[class*='language-'] {
+  background: transparent !important;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.line-numbers .line-numbers-rows {
+  border-right: 1px solid rgba(148, 163, 184, 0.1) !important;
+  padding-right: 12px;
+}
+
+.line-numbers-rows > span::before {
+  color: rgba(148, 163, 184, 0.25) !important;
+}

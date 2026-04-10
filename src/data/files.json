@@ -1,0 +1,32 @@
+{
+  "projectName": "Client Review Panel",
+  "clientName": "Northstar Labs",
+  "expiresOn": "2026-05-09T00:00:00.000Z",
+  "files": [
+    {
+      "name": "App.jsx",
+      "language": "javascript",
+      "content": "import React from 'react';\n\nexport default function App() {\n  return (\n    <main>\n      <h1>Hello from the client review panel</h1>\n      <p>This is a static sample file rendered in read-only mode.</p>\n    </main>\n  );\n}\n"
+    },
+    {
+      "name": "index.html",
+      "language": "html",
+      "content": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Client Review Panel</title>\n  </head>\n  <body>\n    <div id=\"root\"></div>\n  </body>\n</html>\n"
+    },
+    {
+      "name": "config.json",
+      "language": "json",
+      "content": "{\n  \"project\": \"Northstar Labs Review\",\n  \"environment\": \"production\",\n  \"readOnly\": true,\n  \"modules\": [\"viewer\", \"audit\", \"reporting\"]\n}\n"
+    },
+    {
+      "name": "styles.css",
+      "language": "css",
+      "content": ":root {\n  --surface: #0f172a;\n  --surface-strong: #020617;\n  --accent: #38bdf8;\n}\n\nbody {\n  margin: 0;\n  background: linear-gradient(180deg, var(--surface), var(--surface-strong));\n  color: #e2e8f0;\n}\n\n.card {\n  border: 1px solid rgba(148, 163, 184, 0.16);\n  border-radius: 1rem;\n  background: rgba(15, 23, 42, 0.7);\n}\n"
+    },
+    {
+      "name": "bootstrap.js",
+      "language": "javascript",
+      "content": "const routes = [\n  '/overview',\n  '/audit-log',\n  '/release-notes',\n];\n\nexport function bootstrapViewer() {\n  return routes.map((route) => ({ route, enabled: true }));\n}\n"
+    }
+  ]
+}
