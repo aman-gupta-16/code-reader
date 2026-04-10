@@ -20,6 +20,7 @@ export default function LoginPage() {
 
     setIsLoading(true);
     setError("");
+  console.log("Fetching admin projects with key:", trimmed);
 
     try {
       await getAdminProjects(trimmed);
