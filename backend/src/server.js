@@ -22,27 +22,48 @@ await fs.mkdir(uploadsDir, { recursive: true });
 /**
  * ✅ Proper CORS configuration
  */
-// const allowedOrigins = [
-//   "http://localhost:5173",
-//   "https://codeshare12.netlify.app",
-// ];
+import "dotenv/config";
+import path from "path";
+import fs from "fs/promises";
+import express from "express";
+import cors from "cors";
+import { connectDatabase } from "./config/db.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import clientRoutes from "./routes/clientRoutes.js";
 
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       // allow requests with no origin (like Postman, curl)
-//       if (!origin) return callback(null, true);
+const app = express();
+const port = Number(process.env.PORT ?? 5000);
 
-//       if (allowedOrigins.includes(origin)) {
-//         return callback(null, true);
-//       }
+// ✅ Updated CORS for both local + ngrok
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://synonymous-cespitose-bethanie.ngrok-free.dev",   // ← Add your current ngrok URL
+  "https://codeshare12.netlify.app",                       // production if needed
+];
 
-//       return callback(new Error("Not allowed by CORS"));
-//     },
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//   })
-// );
+app.use(
+  cors({
+    // origin: function (origin, callback) {
+    //   // Allow requests with no origin (Postman, curl, mobile apps, etc.)
+    //   if (!origin) return callback(null, true);
+
+    //   if (allowedOrigins.includes(origin)) {
+    //     return callback(null, true);
+    //   }
+
+    //   console.warn(`CORS blocked origin: ${origin}`);
+    //   return callback(new Error("Not allowed by CORS"));
+    // },
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization", "ngrok-skip-browser-warning"], // important for ngrok
+    credentials: true,   // if you use cookies/auth
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
+
+// Rest of your code (body parsers, health check, routes, etc.) remains the same...
 
 /**
  * ✅ Body parsers
