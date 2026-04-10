@@ -4,10 +4,12 @@ const API_BASE_URL = (
 
 async function request(path, options = {}) {
   const response = await fetch(`${API_BASE_URL}${path}`, {
+    method: options.method || "GET",
     headers: {
       "ngrok-skip-browser-warning": "true",
       ...options.headers,
     },
+    body: options.body,
   });
   const isJson = response.headers
     .get("content-type")
@@ -68,7 +70,7 @@ export async function getAdminProjects(adminKey) {
 
 export async function createAdminProject(adminKey, body) {
   console.log("Creating project with body:", body);
-  return request("/api/admin/projectspost", {
+  return request("/api/admin/projects", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${adminKey}`,

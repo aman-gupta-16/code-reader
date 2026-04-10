@@ -106,7 +106,7 @@ router.get('/projects', async (_req, res, next) => {
   }
 });
 
-router.post('/projects-post', async (req, res, next) => {
+router.post('/projects', async (req, res, next) => {
   try {
     const name = typeof req.body.name === 'string' ? req.body.name.trim() : '';
     const description = typeof req.body.description === 'string' ? req.body.description.trim() : '';
