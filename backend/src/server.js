@@ -15,47 +15,73 @@ if (!mongoUri) {
   throw new Error("MONGODB_URI must be configured.");
 }
 
+// Ensure uploads directory exists
 const uploadsDir = path.resolve(process.cwd(), "uploads");
 await fs.mkdir(uploadsDir, { recursive: true });
 
+/**
+ * ✅ Proper CORS configuration
+ */
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://codeshare12.netlify.app",
+];
+
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://codeshare12.netlify.app"],
-    credentials: false,
-  }),
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman, curl)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
 );
 
-app.options("*", cors());
+/**
+ * ✅ Body parsers
+ */
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+/**
+ * ✅ Health check
+ */
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true, service: "client-review-panel-api" });
 });
 
+/**
+ * ✅ Routes
+ */
 app.use("/api/admin", adminRoutes);
 app.use("/api/client", clientRoutes);
 
-// app.use((error, _req, res, _next) => {
-//   const status = Number(error.statusCode ?? 500);
-//   const message = error.message || "Unexpected server error.";
-
-//   if (status >= 500) {
-//     console.error(error);
-//   }
-
-//   res.status(status).json({ message });
-// });
-
-
+/**
+ * ❌ REMOVE your old manual CORS header error handler
+ * ✅ Clean error handler
+ */
 app.use((error, req, res, _next) => {
   const status = Number(error.statusCode ?? 500);
-  const message = error.message || "Unexpected server error.";
 
-  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
-  res.status(status).json({ message });
+  console.error("❌ Error:", error.message);
+
+  res.status(status).json({
+    message: error.message || "Unexpected server error.",
+  });
 });
+
+/**
+ * ✅ Start server AFTER DB connection
+ */
 await connectDatabase(mongoUri);
+
 app.listen(port, () => {
-  console.log(`API server running on http://localhost:${port}`);
+  console.log(`🚀 API server running on http://localhost:${port}`);
 });
